@@ -1,219 +1,307 @@
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <title>Mohamed Khaled - Portfolio</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
-        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-        <style>
-            body {
-                font-family: 'Poppins', sans-serif;
-            }
-        </style>
-    </head>
-    <body class="bg-gray-900 text-white">
-        <header class="container mx-auto p-6 flex justify-between items-center fixed top-0 left-0 right-0 bg-gray-900 z-50">
-            <h1 class="text-2xl font-bold">Portfolio</h1>
-            <nav>
-                <div class="md:hidden">
-                    <button class="text-cyan-400 focus:outline-none" id="menu-button">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
-                <ul class="hidden md:flex space-x-6" id="nav-links">
-                    <li>
-                        <a class="text-cyan-400" href="#home" id="home-link">Home</a>
-                    </li>
-                    <li>
-                        <a class="hover:text-cyan-400" href="#about" id="about-link">About</a>
-                    </li>
-                    <li>
-                        <a class="hover:text-cyan-400" href="#skills" id="skills-link">Skills</a>
-                    </li>
-                    <li>
-                        <a class="hover:text-cyan-400" href="#certificates" id="certificates-link">Certificates</a>
-                    </li>
-                    <li>
-                        <a class="hover:text-cyan-400" href="#contact" id="contact-link">Contact</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <div class="md:hidden fixed top-0 right-0 h-full w-2/3 bg-gray-800 p-6 shadow-lg transform transition-transform duration-300 translate-x-full z-50" id="mobile-nav-links">
-            <ul class="flex flex-col space-y-4">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Mohamed Khalid - Portfolio</title>
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white">
+    <header class="container mx-auto p-6 flex justify-between items-center fixed top-0 left-0 right-0 bg-gray-900 z-50">
+        <h1 class="text-2xl font-bold">Portfolio</h1>
+        <nav>
+            <div class="md:hidden">
+                <button class="text-cyan-400 focus:outline-none" id="menu-button">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <ul class="hidden md:flex space-x-6" id="nav-links">
                 <li>
-                    <a class="text-cyan-400" href="#home" id="mobile-home-link">Home</a>
+                    <a class="text-cyan-400" href="#home" id="home-link">Home</a>
                 </li>
                 <li>
-                    <a class="hover:text-cyan-400" href="#about" id="mobile-about-link">About</a>
+                    <a class="hover:text-cyan-400" href="#about" id="about-link">About</a>
                 </li>
                 <li>
-                    <a class="hover:text-cyan-400" href="#skills" id="mobile-skills-link">Skills</a>
+                    <a class="hover:text-cyan-400" href="#skills" id="skills-link">Skills</a>
                 </li>
                 <li>
-                    <a class="hover:text-cyan-400" href="#certificates" id="mobile-certificates-link">Certificates</a>
+                    <a class="hover:text-cyan-400" href="#certificates" id="certificates-link">Certificates</a>
                 </li>
                 <li>
-                    <a class="hover:text-cyan-400" href="#contact" id="mobile-contact-link">Contact</a>
+                    <a class="hover:text-cyan-400" href="#id-card" id="id-card-link">ID Card</a>
+                    <!-- New ID Card Link -->
+                </li>
+                <li>
+                    <a class="hover:text-cyan-400" href="#contact" id="contact-link">Contact</a>
                 </li>
             </ul>
+        </nav>
+    </header>
+    <div class="md:hidden fixed top-0 right-0 h-full w-2/3 bg-gray-800 p-6 shadow-lg transform transition-transform duration-300 translate-x-full z-50"
+        id="mobile-nav-links">
+        <ul class="flex flex-col space-y-4">
+            <li>
+                <a class="text-cyan-400" href="#home" id="mobile-home-link">Home</a>
+            </li>
+            <li>
+                <a class="hover:text-cyan-400" href="#about" id="mobile-about-link">About</a>
+            </li>
+            <li>
+                <a class="hover:text-cyan-400" href="#skills" id="mobile-skills-link">Skills</a>
+            </li>
+            <li>
+                <a class="hover:text-cyan-400" href="#certificates" id="mobile-certificates-link">Certificates</a>
+            </li>
+            <li>
+                <a class="hover:text-cyan-400" href="#id-card" id="mobile-id-card-link">ID Card</a>
+                <!-- New Mobile ID Card Link -->
+            </li>
+            <li>
+                <a class="hover:text-cyan-400" href="#contact" id="mobile-contact-link">Contact</a>
+            </li>
+        </ul>
+    </div>
+    <main
+        class="container mx-auto p-6 md:p-12 flex flex-col md:flex-row items-center justify-between bg-gray-800 rounded-lg shadow-lg mt-24"
+        id="home">
+        <div class="text -center md:text-left md:w-1/2">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Hello, I'm</h2>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Mohamed khalid</h1>
+            <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-4">
+                <span class="text-cyan-400" id="typed"></span>
+            </h3>
+            <p class="text-gray-400 mb-6">
+                I am a dedicated and skilled developer with a strong focus on delivering efficient and innovative
+                solutions. My expertise lies in web development, where I excel in crafting visually appealing and highly
+                functional websites.
+            </p>
         </div>
-        <main class="container mx-auto p-6 md:p-12 flex flex-col md:flex-row items-center justify-between bg-gray-800 rounded-lg shadow-lg mt-24" id="home">
-            <div class="text-center md:text-left md:w-1/2">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Hello, I'm</h2>
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">Mohamed Khaled</h1>
-                <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-4">
-                    <span class="text-cyan-400" id="typed"></span>
-                </h3>
-                <p class="text-gray-400 mb-6">
-                   I am a passionate developer with a knack for creating elegant solutions in the shortest possible time. I have been interested in web development and love creating beautiful and functional websites.
-                </p>
+        <div class="mt-6 md:mt-0 md:w-1/2 flex justify-center">
+            <div class="relative">
+                <div class="absolute inset-0 bg-cyan-400 rounded-lg transform rotate-6"></div>
+                <img alt="Portrait of Mohamed Khalid" class="relative rounded-lg shadow-lg" height="400"
+                    src="./logoS.png" width="300" />
             </div>
-            <div class="mt-6 md:mt-0 md:w-1/2 flex justify-center">
-                <div class="relative">
-                    <div class="absolute inset-0 bg-cyan-400 rounded-lg transform rotate-6"></div>
-                    <img alt="Portrait of Mohamed Khaled" class="relative rounded-lg shadow-lg" height="400" src="./logoS.png" width="300"/>
-                </div>
+        </div>
+    </main>
+    <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="about">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
+        <p class="text-cyan-400 mb-6">
+            Hi, I'm Mohamed Khalid, a forward-thinking Egyptian with a passion for crafting innovative solutions. Driven
+            by a relentless pursuit of modern ideas, I am dedicated to pushing the boundaries of creativity and
+            technology. My curiosity fuels my exploration of emerging trends, and I am constantly seeking ways to
+            leverage these insights to develop groundbreaking concepts.
+        </p>
+        <p class="text-cyan-400 mb-6">
+            Beyond innovation, I am committed to making a tangible difference in the world. By combining creativity with
+            practicality, I strive to transform visionary ideas into tangible realities. My goal is to leave a lasting
+            impact by contributing to a future shaped by innovation and progress.
+        </p>
+        <p class="text-cyan-400 mb-6">
+            With a strong foundation in web development, I excel in creating visually appealing and highly functional
+            websites. My expertise spans across various programming languages and frameworks, enabling me to deliver
+            robust and scalable solutions. I am proficient in HTML, CSS, JavaScript, and have hands-on experience with
+            modern libraries and tools such as React, Node.js, and Tailwind CSS.
+        </p>
+        <p class="text-cyan-400 mb-6">
+            My journey in the tech world is driven by a commitment to continuous learning and improvement. I actively
+            participate in online courses, workshops, and tech communities to stay updated with the latest advancements.
+            This dedication to growth ensures that I am always equipped with the knowledge and skills needed to tackle
+            complex challenges and deliver exceptional results.
+        </p>
+        <p class="text-cyan-400 mb-6">
+            Collaboration and teamwork are at the core of my work ethic. I believe in the power of collective effort and
+            enjoy working with diverse teams to bring ideas to life. My strong communication skills and ability to
+            adapt to different environments make me a valuable team player who can contribute effectively to any
+            project.
+        </p>
+        <p class="text-cyan-400 mb-6">
+            In addition to my technical skills, I am also passionate about mentoring and sharing knowledge with others.
+            I have had the privilege of guiding aspiring developers and helping them navigate their own journeys in the
+            tech industry. This experience has not only enriched my own understanding but also reinforced my belief in
+            the importance of community and knowledge sharing.
+        </p>
+        <p class="text-cyan-400 mb-6">
+            Looking ahead, I am excited about the endless possibilities that the future holds. I am eager to take on new
+            challenges, collaborate with like-minded individuals, and continue pushing the boundaries of what is
+            possible in the world of technology. Together, let's build a future that is innovative, inclusive, and
+            impactful.
+        </p>
+    </section>
+    <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="skills">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">My Skills</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="text-center">
+                <h3 class="text-cyan-500 text-xl font-semibold">HTML</h3>
+                <img src="https://img.icons8.com/color/48/000000/html-5.png" alt="HTML Logo"
+                    class="mx-auto h-16 w-16" />
             </div>
-        </main>
-        <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="about">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
-            <p class="text-cyan-400 mb-6">
-                Hi, I'm Mohamed Khaled, a forward-thinking Egyptian with a passion for crafting innovative solutions. Driven by a relentless pursuit of modern ideas, I am dedicated to pushing the boundaries of creativity and technology. My curiosity fuels my exploration of emerging trends, and I am constantly seeking ways to leverage these insights to develop groundbreaking concepts.
-
-Beyond innovation, I am committed to making a tangible difference in the world. By combining creativity with practicality, I strive to transform visionary ideas into tangible realities. My goal is to leave a lasting impact by contributing to a future shaped by innovation and progress.            
-            </p>
-        </section>
-        <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="skills">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">My Skills</h2>
-            <ul class="list-disc list-inside text-gray-400">
-                <li class="text-cyan-500">HTML</li>
-                <li class="text-cyan-500">CSS</li>
-                <li class="text-cyan-500">JavaScript</li>
-                <li class="text-cyan-500">NodeJS</li>
-                <li class="text-cyan-500">Python</li>
-                <li class="text-cyan-500">C</li>
-                <li class="text-cyan-500">Computer Science [CS50]</li>
-                <li class="text-cyan-500">Distributed version control system [Git]</li>
-                <li class="text-cyan-500">Linux</li>
-            </ul>
-        </section>
-        <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="certificates">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">My Certificates</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <img alt="Certificate 1" class="rounded-lg shadow-lg" height="200" src="./c.jpg" width="300"/>
-                <img alt="Certificate 2" class="rounded-lg shadow-lg" height="200" src="./linux.jpg" width="300"/>
-                <img alt="Certificate 3" class="rounded-lg shadow-lg" height="200" src="./cs.png" width="300"/>
-                <img alt="Certificate 4" class="rounded-lg shadow-lg" height="200" src="./python.png" width="300"/>
-                <img alt="Certificate 5" class="rounded-lg shadow-lg" height="200" src="./node.jpg" width="300"/>
+            <div class="text-center">
+                <h3 class="text-cyan-500 text-xl font-semibold">CSS</h3>
+                <img src="https://img.icons8.com/color/48/000000/css3.png" alt="CSS Logo" class="mx-auto h-16 w-16" />
             </div>
-        </section>
-        <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="contact">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Contact Me</h2>
-            <p class="text-cyan-400 mb-6">
-                Gmail: <a href="mailto:weroperking@gmail.com">weroperking@gmail.com</a>
-            </p>
-            <p class="text-cyan-400 mb-6">
-                Outlook.: <a href="mailto:weroperking@outlook..com">weroperking@outlook.com</a>
-            </p>
-            <p class="text-cyan-400 mb-6">
-                Phone, WhatsApp: 01277707096
-            </p>
-            <p class="text-cyan-400 mb-6">
-                If you're interested in my upcoming learning roadmap, <a href="./Roadmap.md" class="underline decoration-pink-500 underline-offset-4">here it is</a>
-                .
-            </p>
-        </section>
-        <footer class="container mx-auto p-6 bg-gray-800 rounded-lg shadow-lg mt-24">
-            <p class="text-center text-gray-400">© 2024 Mohamed Khaled. All rights reserved.</p>
-        </footer>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var typed = new Typed('#typed',{
-                    strings: ["Web Developer", "Tech Enthusiast" , "Linux Logic", "Dynamic Logic", "Logic and Data Architect"],
-                    typeSpeed: 50,
-                    backSpeed: 50,
-                    loop: true
-                });
-
-                const navLinks = document.querySelectorAll('nav a');
-                const sections = document.querySelectorAll('section');
-                const mainSection = document.querySelector('main');
-                const menuButton = document.getElementById('menu-button');
-                const mobileNavLinks = document.getElementById('mobile-nav-links');
-
-                menuButton.addEventListener('click', function() {
-                    mobileNavLinks.classList.toggle('translate-x-full');
-                    mobileNavLinks.classList.toggle('translate-x-0');
-                });
-
-                navLinks.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href').substring(1);
-                        sections.forEach(section => {
-                            if (section.id === targetId) {
-                                section.classList.remove('hidden');
-                                mainSection.classList.add('hidden');
-                            } else {
-                                section.classList.add('hidden');
-                            }
-                        }
-                        );
-                        if (targetId === 'home') {
-                            mainSection.classList.remove('hidden');
-                        }
-                        navLinks.forEach(navLink => {
-                            if (navLink.getAttribute('href').substring(1) === targetId) {
-                                navLink.classList.add('text-white');
-                                navLink.classList.remove('text-cyan-400');
-                            } else {
-                                navLink.classList.remove('text-white');
-                                navLink.classList.add('text-cyan-400');
-                            }
-                        }
-                        );
-                        document.getElementById('home-link').classList.add('text-cyan-400');
-                    });
-                }
-                );
-
-                const mobileNavLinksArray = document.querySelectorAll('#mobile-nav-links a');
-                mobileNavLinksArray.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href').substring(1);
-                        sections.forEach(section => {
-                            if (section.id === targetId) {
-                                section.classList.remove('hidden');
-                                mainSection.classList.add('hidden');
-                            } else {
-                                section.classList.add('hidden');
-                            }
-                        }
-                        );
-                        if (targetId === 'home') {
-                            mainSection.classList.remove('hidden');
-                        }
-                        mobileNavLinksArray.forEach(navLink => {
-                            if (navLink.getAttribute('href').substring(1) === targetId) {
-                                navLink.classList.add('text-white');
-                                navLink.classList.remove('text-cyan-400');
-                            } else {
-                                navLink.classList.remove('text-white');
-                                navLink.classList.add('text-cyan-400');
-                            }
-                        }
-                        );
-                        document.getElementById('mobile-home-link').classList.add('text-cyan-400');
-                        mobileNavLinks.classList.add('translate-x-full');
-                        mobileNavLinks.classList.remove('translate-x-0');
-                    });
-                }
-                );
+            <div class="text-center">
+                <h3 class="text-cyan-500 text-xl font-semibold">JavaScript</h3>
+                <img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript Logo"
+                    class="mx-auto h-16 w-16" />
+            </div>
+            <div class="text-center">
+                <h3 class="text-cyan-500 text-xl font-semibold">NodeJS</h3>
+                <img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="NodeJS Logo"
+                    class="mx-auto h-16 w-16" />
+            </div>
+            <div class="text-center">
+                <h3 class="text-cyan-500 text-xl font-semibold">Python</h3>
+                <img src="https://img.icons8.com/color/48/000000/python.png" alt="Python Logo"
+                    class="mx-auto h-16 w-16" />
+            </div>
+            <div class="text-center">
+                <h3 class="text-cyan-500 text-xl font-semibold">C</h3>
+                <img src="https://img.icons8.com/color/48/000000/c-programming.png" alt="C Logo"
+                    class="mx-auto h-16 w-16" />
+            </div>
+            <div class="text-center">
+                <h3 class="text-cyan-500 text-xl font-semibold">Computer Science [CS50]</h3>
+                <img src="https://m.media-amazon.com/images/I/414HXNGKVhL.png" alt="CS50 Logo"
+                    class="mx-auto h-16 w-16" />
+            </div>
+            <div class="text-center">
+                <h3 class="text-cyan-500 text-xl font-semibold">Distributed version control system [Git]</h3>
+                <img src="https://img.icons8.com/color/48/000000/git.png" alt="Git Logo" class="mx-auto h-16 w-16" />
+            </div>
+            <div class="text-center">
+                <h3 class="text-cyan-500 text-xl font-semibold">Linux</h3>
+                <img src="https://img.icons8.com/color/48/000000/linux.png" alt="Linux Logo"
+                    class="mx-auto h-16 w-16" />
+            </div>
+        </div>
+    </section>
+    <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="certificates">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">My Certificates</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <img alt="Certificate 1" class="rounded-lg shadow-lg" height="200" src="./c.jpg" width="300" />
+            <img alt="Certificate 2" class="rounded-lg shadow-lg" height="200" src="./linux.jpg" width="300" />
+            <img alt="Certificate 3" class="rounded-lg shadow-lg" height="200" src="./cs.png" width="300" />
+            <img alt="Certificate 4" class="rounded-lg shadow-lg" height="200" src="./python.png" width="300" />
+            <img alt="Certificate 5" class="rounded-lg shadow-lg" height="200" src="./node.jpg" width="300" />
+        </div>
+    </section>
+    <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="id-card">
+        <!-- New ID Card Section -->
+        <h2 class="text-3xl md :text-4xl font-bold mb-4">ID Card</h2>
+        <form id="id-card-form" class="flex flex-col space-y-4">
+            <input type="text" id="username" placeholder="Enter Password" class="p-2 rounded bg-gray-700 text-white"
+                required />
+            <button type="submit" class="bg-cyan-500 p-2 rounded hover:bg-cyan-400">Check</button>
+        </form>
+    </section>
+    <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="contact">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Contact Me</h2>
+        <p class="text-cyan-400 mb-6">
+            Gmail: <a href="mailto:weroperking@gmail.com">weroperking@gmail.com</a>
+        </p>
+        <p class="text-cyan-400 mb-6">
+            Outlook: <a href="mailto:weroperking@outlook.com">weroperking@outlook.com</a>
+        </p>
+        <p class="text-cyan-400 mb-6">
+            Phone, WhatsApp: 01277707096
+        </p>
+        <p class="text-cyan-400 mb-6">
+            If you're interested in my upcoming learning roadmap, <a href="./Roadmap.html"
+                class="underline decoration-pink-500 underline-offset-4">here it is</a>.
+        </p>
+    </section>
+    <footer class="container mx-auto p-6 bg-gray-800 rounded-lg shadow-lg mt-24">
+        <p class="text-center text-gray-400">© 2024 Mohamed khalid. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var typed = new Typed('#typed', {
+                strings: ["Web Developer", "Tech Enthusiast", "Linux Logic", "Dynamic Logic", "Logic and Data Architect"],
+                typeSpeed: 50,
+                backSpeed: 50,
+                loop: true
             });
-        </script>
-    </body>
+
+            const navLinks = document.querySelectorAll('nav a');
+            const sections = document.querySelectorAll('section');
+            const mainSection = document.querySelector('main');
+            const menuButton = document.getElementById('menu-button');
+            const mobileNavLinks = document.getElementById('mobile-nav-links');
+
+            menuButton.addEventListener('click', function () {
+                mobileNavLinks.classList.toggle('translate-x-full');
+                mobileNavLinks.classList.toggle('translate-x-0');
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    sections.forEach(section => {
+                        section.classList.toggle('hidden', section.id !== targetId);
+                    });
+                    mainSection.classList.toggle('hidden', targetId !== 'home');
+                    navLinks.forEach(navLink => {
+                        navLink.classList.toggle('text-white', navLink.getAttribute('href').substring(1) === targetId);
+                        navLink.classList.toggle('text-cyan-400', navLink.getAttribute('href').substring(1) !== targetId);
+                    });
+                });
+            });
+
+            const mobileNavLinksArray = document.querySelectorAll('#mobile-nav-links a');
+            mobileNavLinksArray.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    sections.forEach(section => {
+                        section.classList.toggle('hidden', section.id !== targetId);
+                    });
+                    mainSection.classList.toggle('hidden', targetId !== 'home');
+                    mobileNavLinksArray.forEach(navLink => {
+                        navLink.classList.toggle('text-white', navLink.getAttribute('href').substring(1) === targetId);
+                        navLink.classList.toggle('text-cyan-400', navLink.getAttribute('href').substring(1) !== targetId);
+                    });
+                    mobileNavLinks.classList.add('translate-x-full');
+                    mobileNavLinks.classList.remove('translate-x-0');
+                });
+            });
+
+            // ID Card Form Submission
+            const idCardForm = document.getElementById('id-card-form');
+            idCardForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                if (username === 'weroperking') {
+                    window.location.href = 'https://weroperking.github.io/personal';
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Welcome!',
+                        text: 'You have successfully went to the ID Card page.',
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Invalid password! Please try again.',
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
 </html>
