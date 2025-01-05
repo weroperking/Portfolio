@@ -84,10 +84,11 @@ Ensure you have the following:
 ## Contact
 Feel free to reach out:
 - **Email:** [weroperking@gmail.com](mailto:weroperking@gmail.com)
-- **Phone/WhatsApp:** 01277707096 (Available: 7 PM - 9 PM)
-- **Roadmap:** [Upcoming learning roadmap](./Roadmap.md)
+- **Outlook:** [weroperking@outlook.com](mailto:weroperking@outlook.com)
+- **Phone/WhatsApp:** 01277707096 
+- **Roadmap:** [Upcoming learning roadmap](./Roadmap.html)
 
 ---
 
 ## License
-© 2024 Mohamed Khaled. All rights reserved.
+© 2024 Mohamed Khalid. All rights reserved.
