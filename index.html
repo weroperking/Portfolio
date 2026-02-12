@@ -1,311 +1,907 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Mohamed Khalid - Portfolio</title>
-    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mohamed Khaled — Systems & Technology</title>
+    <meta name="description" content="Systems tinkerer and technology generalist. From silicon to cloud, I explore the full stack of computing." />
+    
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#f59e0b', // Amber-500
+                        surface: '#0a0a0a',
+                        elevated: '#171717',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glitch': 'glitch 1s linear infinite',
+                    },
+                    keyframes: {
+                        glitch: {
+                            '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
+                            '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
+                            '62%': { transform: 'translate(0,0) skew(5deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 -->
+
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #f59e0b;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        .cursor-outline.hover {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(245, 158, 11, 0.1);
+            border-color: #f59e0b;
+        }
+
+        /* Noise Texture */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262626;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        /* Glitch Text Effect */
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -1px 0 #00fff9;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(30px, 9999px, 15px, 0); }
+            20% { clip: rect(80px, 9999px, 70px, 0); }
+            40% { clip: rect(10px, 9999px, 55px, 0); }
+            60% { clip: rect(50px, 9999px, 18px, 0); }
+            80% { clip: rect(90px, 9999px, 85px, 0); }
+            100% { clip: rect(35px, 9999px, 15px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            20% { clip: rect(20px, 9999px, 30px, 0); }
+            40% { clip: rect(90px, 9999px, 95px, 0); }
+            60% { clip: rect(40px, 9999px, 60px, 0); }
+            80% { clip: rect(15px, 9999px, 25px, 0); }
+            100% { clip: rect(70px, 9999px, 80px, 0); }
+        }
+
+        /* Code Window */
+        .code-window {
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .code-header {
+            background: #2d2d2d;
+            padding: 12px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+        
+        .line-numbers {
+            color: #6e7681;
+            text-align: right;
+            padding-right: 16px;
+            user-select: none;
+        }
+
+        /* Spotlight Card Effect */
+        .spotlight-card {
+            position: relative;
+            background: #171717;
+            overflow: hidden;
+        }
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(
+                800px circle at var(--mouse-x) var(--mouse-y),
+                rgba(245, 158, 11, 0.15),
+                transparent 40%
+            );
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+        .spotlight-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Skills Marquee */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Canvas Container */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Terminal typing effect */
+        .terminal-line {
+            border-right: 2px solid #f59e0b;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
         }
     </style>
 </head>
+<body class="font-sans antialiased selection:bg-primary selection:text-black">
 
-<body class="bg-gray-900 text-white">
-    <header class="container mx-auto p-6 flex justify-between items-center fixed top-0 left-0 right-0 bg-gray-900 z-50">
-        <h1 class="text-2xl font-bold">Portfolio</h1>
-        <nav>
-            <div class="md:hidden">
-                <button class="text-cyan-400 focus:outline-none" id="menu-button">
-                    <i class="fas fa-bars"></i>
-                </button>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+    
+    <!-- Noise Overlay -->
+    <div class="noise"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 bg-surface/80 backdrop-blur-md border-b border-white/5 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-mono font-bold text-xl tracking-tighter hover:text-primary transition-colors" data-cursor>
+                MK_<span class="text-primary">sys</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#about" class="font-mono text-sm text-neutral-400 hover:text-primary transition-colors" data-cursor>/manifesto</a>
+                <a href="#stack" class="font-mono text-sm text-neutral-400 hover:text-primary transition-colors" data-cursor>/arsenal</a>
+                <a href="#proof" class="font-mono text-sm text-neutral-400 hover:text-primary transition-colors" data-cursor>/credentials</a>
+                <a href="#contact" class="font-mono text-sm text-neutral-400 hover:text-primary transition-colors" data-cursor>/ping</a>
             </div>
-            <ul class="hidden md:flex space-x-6" id="nav-links">
-                <li>
-                    <a class="text-cyan-400" href="#home" id="home-link">Home</a>
-                </li>
-                <li>
-                    <a class="hover:text-cyan-400" href="#about" id="about-link">About</a>
-                </li>
-                <li>
-                    <a class="hover:text-cyan-400" href="#skills" id="skills-link">Skills</a>
-                </li>
-                <li>
-                    <a class="hover:text-cyan-400" href="#certificates" id="certificates-link">Certificates</a>
-                </li>
-                <li>
-                    <a class="hover:text-cyan-400" href="#id-card" id="id-card-link">ID Card</a>
-                    <!-- New ID Card Link -->
-                </li>
-                <li>
-                    <a class="hover:text-cyan-400" href="#contact" id="contact-link">Contact</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <div class="md:hidden fixed top-0 right-0 h-full w-2/3 bg-gray-800 p-6 shadow-lg transform transition-transform duration-300 translate-x-full z-50"
-        id="mobile-nav-links">
-        <ul class="flex flex-col space-y-4">
-            <li>
-                <a class="text-cyan-400" href="#home" id="mobile-home-link">Home</a>
-            </li>
-            <li>
-                <a class="hover:text-cyan-400" href="#about" id="mobile-about-link">About</a>
-            </li>
-            <li>
-                <a class="hover:text-cyan-400" href="#skills" id="mobile-skills-link">Skills</a>
-            </li>
-            <li>
-                <a class="hover:text-cyan-400" href="#certificates" id="mobile-certificates-link">Certificates</a>
-            </li>
-            <li>
-                <a class="hover:text-cyan-400" href="#id-card" id="mobile-id-card-link">ID Card</a>
-                <!-- New Mobile ID Card Link -->
-            </li>
-            <li>
-                <a class="hover:text-cyan-400" href="#contact" id="mobile-contact-link">Contact</a>
-            </li>
-        </ul>
-    </div>
-    <main
-        class="container mx-auto p-6 md:p-12 flex flex-col md:flex-row items-center justify-between bg-gray-800 rounded-lg shadow-lg mt-24"
-        id="home">
-        <div class="text -center md:text-left md:w-1/2">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Hello, I'm</h2>
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Mohamed khalid</h1>
-            <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-4">
-                <span class="text-cyan-400" id="typed"></span>
-            </h3>
-            <p class="text-gray-400 mb-6">
-                I am a dedicated and skilled developer with a strong focus on delivering efficient and innovative
-                solutions. My expertise lies in web development, where I excel in crafting visually appealing and highly
-                functional websites.
+
+            <button class="md:hidden text-neutral-300 hover:text-primary" id="mobile-menu-btn" data-cursor>
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="md:hidden absolute top-full left-0 w-full bg-surface border-b border-white/5 transform -translate-y-full transition-transform duration-300 -z-10" id="mobile-menu">
+            <div class="px-6 py-4 flex flex-col gap-4">
+                <a href="#about" class="font-mono text-sm text-neutral-400 hover:text-primary" data-cursor>/manifesto</a>
+                <a href="#stack" class="font-mono text-sm text-neutral-400 hover:text-primary" data-cursor>/arsenal</a>
+                <a href="#proof" class="font-mono text-sm text-neutral-400 hover:text-primary" data-cursor>/credentials</a>
+                <a href="#contact" class="font-mono text-sm text-neutral-400 hover:text-primary" data-cursor>/ping</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <canvas id="hero-canvas"></canvas>
+        
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center md:text-left md:flex items-center justify-between gap-12">
+            <div class="flex-1 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary font-mono text-xs mb-4">
+                    <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    root@mkhalid:~$ ./initiate_contact
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-bold font-mono leading-tight">
+                    Mohamed<br>
+                    <span class="glitch-text text-primary" data-text="Khalid">Khalid</span>
+                </h1>
+                
+                <div class="h-8 md:h-12">
+                    <span class="text-xl md:text-2xl text-neutral-400 font-mono" id="typed-text"></span>
+                    <span class="text-primary animate-pulse">_</span>
+                </div>
+
+                <p class="text-neutral-400 max-w-lg text-lg leading-relaxed">
+                    I don't just write code—I study systems. From memory management to distributed architectures, from bare-metal logic to neural networks. If it computes, I'm interested.
+                </p>
+
+                <div class="flex gap-4 pt-4 justify-center md:justify-start">
+                    <a href="#contact" class="px-6 py-3 bg-primary text-black font-mono font-bold rounded hover:bg-amber-400 transition-all transform hover:scale-105" data-cursor>
+                        Establish Connection
+                    </a>
+                    <a href="#stack" class="px-6 py-3 border border-neutral-700 text-neutral-300 font-mono rounded hover:border-primary hover:text-primary transition-all" data-cursor>
+                        Explore Stack
+                    </a>
+                </div>
+            </div>
+
+            <div class="hidden md:block relative">
+                <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full"></div>
+                <div class="relative code-window w-96 transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                    <div class="code-header">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                        <span class="ml-2 text-xs text-neutral-500">interests.cfg</span>
+                    </div>
+                    <div class="p-4 text-sm leading-relaxed">
+                        <pre><span class="text-purple-400">[SYSTEM]</span>
+<span class="text-blue-400">role</span><span class="text-neutral-500">=</span><span class="text-green-400">"Technology Generalist"</span>
+<span class="text-blue-400">curiosity_level</span><span class="text-neutral-500">=</span><span class="text-orange-400">MAX_INT</span>
+<span class="text-blue-400">specialization</span><span class="text-neutral-500">=</span><span class="text-green-400">"undefined"</span>
+
+<span class="text-purple-400">[DOMAINS]</span>
+<span class="text-neutral-500">1.</span> <span class="text-green-400">Systems Programming</span>
+<span class="text-neutral-500">2.</span> <span class="text-green-400">Machine Learning</span>
+<span class="text-neutral-500">3.</span> <span class="text-green-400">Embedded Systems</span>
+<span class="text-neutral-500">4.</span> <span class="text-green-400">Distributed Computing</span>
+<span class="text-neutral-500">5.</span> <span class="text-green-400">Whatever's Next</span>
+
+<span class="text-neutral-500"># Currently exploring: Rust & OS internals</span></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="text-neutral-600 w-6 h-6"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h2 class="font-mono text-3xl md:text-4xl font-bold mb-6">
+                        <span class="text-primary">/</span>manifesto
+                    </h2>
+                    <div class="space-y-4 text-neutral-400 leading-relaxed">
+                        <p>
+                            I started with web development, but the web was just the entry point. What fascinates me now is the entire stack—from electrons flowing through transistors to packets routing across continents. I want to understand the machine at every level of abstraction.
+                        </p>
+                        <p>
+                            I'm not married to any single language or framework. Today it might be Node.js, tomorrow it might be Rust, next week I'm reading about transformer architectures in ML papers, and on weekends I'm probably breaking my Linux install trying to compile a custom kernel.
+                        </p>
+                        <p>
+                            Technology is a frontier, and I'm here to explore it all. Whether it's optimizing algorithms, architecting distributed systems, training models, or just writing a shell script that saves me 5 minutes—if it involves solving problems with technology, count me in.
+                        </p>
+                        <div class="pt-4 flex gap-4 text-sm font-mono">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="cpu" class="w-4 h-4 text-primary"></i>
+                                <span>Systems Thinker</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="layers" class="w-4 h-4 text-primary"></i>
+                                <span>Full Spectrum</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal delay-100">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="spotlight-card rounded-lg p-6 border border-white/5" data-spotlight>
+                            <div class="spotlight-content">
+                                <i data-lucide="microchip" class="w-8 h-8 text-primary mb-4"></i>
+                                <h3 class="font-mono font-bold text-lg mb-2">Low Level</h3>
+                                <p class="text-sm text-neutral-500">C, memory management, and understanding what actually happens when you malloc().</p>
+                            </div>
+                        </div>
+                        <div class="spotlight-card rounded-lg p-6 border border-white/5 mt-8" data-spotlight>
+                            <div class="spotlight-content">
+                                <i data-lucide="network" class="w-8 h-8 text-primary mb-4"></i>
+                                <h3 class="font-mono font-bold text-lg mb-2">Distributed</h3>
+                                <p class="text-sm text-neutral-500">Systems that scale, fail gracefully, and communicate across the wire.</p>
+                            </div>
+                        </div>
+                        <div class="spotlight-card rounded-lg p-6 border border-white/5" data-spotlight>
+                            <div class="spotlight-content">
+                                <i data-lucide="brain-circuit" class="w-8 h-8 text-primary mb-4"></i>
+                                <h3 class="font-mono font-bold text-lg mb-2">ML/AI</h3>
+                                <p class="text-sm text-neutral-500">Not just calling APIs. Understanding gradients, tensors, and model architectures.</p>
+                            </div>
+                        </div>
+                        <div class="spotlight-card rounded-lg p-6 border border-white/5 mt-8" data-spotlight>
+                            <div class="spotlight-content">
+                                <i data-lucide="terminal-square" class="w-8 h-8 text-primary mb-4"></i>
+                                <h3 class="font-mono font-bold text-lg mb-2">Automation</h3>
+                                <p class="text-sm text-neutral-500">If I do it twice, I script it. Linux, bash, and the art of laziness.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="stack" class="py-24 bg-neutral-950 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
+                <div>
+                    <h2 class="font-mono text-3xl md:text-4xl font-bold mb-2">
+                        <span class="text-primary">/</span>arsenal
+                    </h2>
+                    <p class="text-neutral-500 font-mono text-sm">Tools are temporary. Concepts are permanent. But here are my current weapons of choice.</p>
+                </div>
+                <div class="mt-4 md:mt-0 text-right">
+                    <span class="text-xs font-mono text-neutral-600">Learning Velocity</span>
+                    <div class="flex gap-2 mt-1">
+                        <span class="w-8 h-1 bg-primary rounded"></span>
+                        <span class="w-8 h-1 bg-primary rounded"></span>
+                        <span class="w-8 h-1 bg-primary rounded"></span>
+                        <span class="w-8 h-1 bg-primary rounded"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+                <!-- Systems & Low Level -->
+                <div class="spotlight-card rounded-lg p-6 border border-white/5" data-spotlight>
+                    <div class="spotlight-content">
+                        <h3 class="font-mono text-primary mb-4 flex items-center gap-2">
+                            <i data-lucide="cpu" class="w-4 h-4"></i>
+                            Systems & Core
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="group">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="font-mono">C / Systems</span>
+                                    <span class="text-neutral-600 font-mono">Learning</span>
+                                </div>
+                                <div class="h-1 bg-neutral-800 rounded overflow-hidden">
+                                    <div class="h-full bg-primary w-[75%] transform origin-left transition-transform group-hover:scale-x-110"></div>
+                                </div>
+                            </div>
+                            <div class="group">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="font-mono">Python</span>
+                                    <span class="text-neutral-600 font-mono">Advanced</span>
+                                </div>
+                                <div class="h-1 bg-neutral-800 rounded overflow-hidden">
+                                    <div class="h-full bg-primary w-[90%] transform origin-left transition-transform group-hover:scale-x-110"></div>
+                                </div>
+                            </div>
+                            <div class="group">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="font-mono">JavaScript/Node</span>
+                                    <span class="text-neutral-600 font-mono">Expert</span>
+                                </div>
+                                <div class="h-1 bg-neutral-800 rounded overflow-hidden">
+                                    <div class="h-full bg-primary w-[95%] transform origin-left transition-transform group-hover:scale-x-110"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Infrastructure -->
+                <div class="spotlight-card rounded-lg p-6 border border-white/5" data-spotlight>
+                    <div class="spotlight-content">
+                        <h3 class="font-mono text-primary mb-4 flex items-center gap-2">
+                            <i data-lucide="server" class="w-4 h-4"></i>
+                            Infrastructure
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 rounded text-sm font-mono hover:border-primary hover:text-primary transition-colors cursor-default">Linux</span>
+                            <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 rounded text-sm font-mono hover:border-primary hover:text-primary transition-colors cursor-default">Docker</span>
+                            <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 rounded text-sm font-mono hover:border-primary hover:text-primary transition-colors cursor-default">Git</span>
+                            <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 rounded text-sm font-mono hover:border-primary hover:text-primary transition-colors cursor-default">Bash</span>
+                            <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 rounded text-sm font-mono hover:border-primary hover:text-primary transition-colors cursor-default">SQL</span>
+                            <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 rounded text-sm font-mono hover:border-primary hover:text-primary transition-colors cursor-default">Networking</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emerging & Web -->
+                <div class="spotlight-card rounded-lg p-6 border border-white/5" data-spotlight>
+                    <div class="spotlight-content">
+                        <h3 class="font-mono text-primary mb-4 flex items-center gap-2">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            Frontiers
+                        </h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-sm font-mono text-neutral-400">
+                                <i data-lucide="book-open" class="w-3 h-3 text-primary"></i>
+                                Rust (Systems)
+                            </div>
+                            <div class="flex items-center gap-2 text-sm font-mono text-neutral-400">
+                                <i data-lucide="book-open" class="w-3 h-3 text-primary"></i>
+                                Machine Learning (PyTorch)
+                            </div>
+                            <div class="flex items-center gap-2 text-sm font-mono text-neutral-400">
+                                <i data-lucide="book-open" class="w-3 h-3 text-primary"></i>
+                                Embedded Systems
+                            </div>
+                            <div class="flex items-center gap-2 text-sm font-mono text-neutral-400">
+                                <i data-lucide="check" class="w-3 h-3 text-primary"></i>
+                                React/Web (The foundation)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marquee -->
+            <div class="mt-16 marquee-container opacity-50 reveal">
+                <div class="marquee-content font-mono text-4xl font-bold text-neutral-800">
+                    SYSTEMS • ALGORITHMS • NETWORKS • LINUX • COMPIILERS • PYTHON • C • RUST • ML • DISTRIBUTED • ARCHITECTURE • SYSTEMS • ALGORITHMS • NETWORKS •
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="proof" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="font-mono text-3xl md:text-4xl font-bold mb-4 reveal">
+                <span class="text-primary">/</span>credentials
+            </h2>
+            <p class="text-neutral-500 mb-12 font-mono text-sm reveal">
+                Formal education is just the baseline. These are the checkpoints on my self-directed journey through computer science.
             </p>
-        </div>
-        <div class="mt-6 md:mt-0 md:w-1/2 flex justify-center">
-            <div class="relative">
-                <div class="absolute inset-0 bg-cyan-400 rounded-lg transform rotate-6"></div>
-                <img alt="Portrait of Mohamed Khalid" class="relative rounded-lg shadow-lg" height="400"
-                    src="./logoS.png" width="300" />
-            </div>
-        </div>
-    </main>
-    <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="about">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
-        <p class="text-cyan-400 mb-6">
-            Hi, I'm Mohamed Khalid, a forward-thinking Egyptian with a passion for crafting innovative solutions. Driven
-            by a relentless pursuit of modern ideas, I am dedicated to pushing the boundaries of creativity and
-            technology. My curiosity fuels my exploration of emerging trends, and I am constantly seeking ways to
-            leverage these insights to develop groundbreaking concepts.
-        </p>
-        <p class="text-cyan-400 mb-6">
-            Beyond innovation, I am committed to making a tangible difference in the world. By combining creativity with
-            practicality, I strive to transform visionary ideas into tangible realities. My goal is to leave a lasting
-            impact by contributing to a future shaped by innovation and progress.
-        </p>
-        <p class="text-cyan-400 mb-6">
-            With a strong foundation in web development, I excel in creating visually appealing and highly functional
-            websites. My expertise spans across various programming languages and frameworks, enabling me to deliver
-            robust and scalable solutions. I am proficient in HTML, CSS, JavaScript, and have hands-on experience with
-            modern libraries and tools such as React, Node.js, and Tailwind CSS.
-        </p>
-        <p class="text-cyan-400 mb-6">
-            My journey in the tech world is driven by a commitment to continuous learning and improvement. I actively
-            participate in online courses, workshops, and tech communities to stay updated with the latest advancements.
-            This dedication to growth ensures that I am always equipped with the knowledge and skills needed to tackle
-            complex challenges and deliver exceptional results.
-        </p>
-        <p class="text-cyan-400 mb-6">
-            Collaboration and teamwork are at the core of my work ethic. I believe in the power of collective effort and
-            enjoy working with diverse teams to bring ideas to life. My strong communication skills and ability to
-            adapt to different environments make me a valuable team player who can contribute effectively to any
-            project.
-        </p>
-        <p class="text-cyan-400 mb-6">
-            In addition to my technical skills, I am also passionate about mentoring and sharing knowledge with others.
-            I have had the privilege of guiding aspiring developers and helping them navigate their own journeys in the
-            tech industry. This experience has not only enriched my own understanding but also reinforced my belief in
-            the importance of community and knowledge sharing.
-        </p>
-        <p class="text-cyan-400 mb-6">
-            Looking ahead, I am excited about the endless possibilities that the future holds. I am eager to take on new
-            challenges, collaborate with like-minded individuals, and continue pushing the boundaries of what is
-            possible in the world of technology. Together, let's build a future that is innovative, inclusive, and
-            impactful.
-        </p>
-    </section>
-    <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="skills">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">My Skills</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="text-center">
-                <h3 class="text-cyan-500 text-xl font-semibold">HTML</h3>
-                <img src="https://img.icons8.com/color/48/000000/html-5.png" alt="HTML Logo"
-                    class="mx-auto h-16 w-16" />
-            </div>
-            <div class="text-center">
-                <h3 class="text-cyan-500 text-xl font-semibold">CSS</h3>
-                <img src="https://img.icons8.com/color/48/000000/css3.png" alt="CSS Logo" class="mx-auto h-16 w-16" />
-            </div>
-            <div class="text-center">
-                <h3 class="text-cyan-500 text-xl font-semibold">JavaScript</h3>
-                <img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript Logo"
-                    class="mx-auto h-16 w-16" />
-            </div>
-            <div class="text-center">
-                <h3 class="text-cyan-500 text-xl font-semibold">NodeJS</h3>
-                <img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="NodeJS Logo"
-                    class="mx-auto h-16 w-16" />
-            </div>
-            <div class="text-center">
-                <h3 class="text-cyan-500 text-xl font-semibold">Python</h3>
-                <img src="https://img.icons8.com/color/48/000000/python.png" alt="Python Logo"
-                    class="mx-auto h-16 w-16" />
-            </div>
-            <div class="text-center">
-                <h3 class="text-cyan-500 text-xl font-semibold">C</h3>
-                <img src="https://img.icons8.com/color/48/000000/c-programming.png" alt="C Logo"
-                    class="mx-auto h-16 w-16" />
-            </div>
-            <div class="text-center">
-                <h3 class="text-cyan-500 text-xl font-semibold">Computer Science [CS50]</h3>
-                <img src="https://m.media-amazon.com/images/I/414HXNGKVhL.png" alt="CS50 Logo"
-                    class="mx-auto h-16 w-16" />
-            </div>
-            <div class="text-center">
-                <h3 class="text-cyan-500 text-xl font-semibold">Distributed version control system [Git]</h3>
-                <img src="https://img.icons8.com/color/48/000000/git.png" alt="Git Logo" class="mx-auto h-16 w-16" />
-            </div>
-            <div class="text-center">
-                <h3 class="text-cyan-500 text-xl font-semibold">Linux</h3>
-                <img src="https://img.icons8.com/color/48/000000/linux.png" alt="Linux Logo"
-                    class="mx-auto h-16 w-16" />
-            </div>
-        </div>
-    </section>
-    <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="certificates">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">My Certificates</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <img alt="Certificate 1" class="rounded-lg shadow-lg" height="200" src="./c.jpg" width="300" />
-            <img alt="Certificate 2" class="rounded-lg shadow-lg" height="200" src="./linux.jpg" width="300" />
-            <img alt="Certificate 3" class="rounded-lg shadow-lg" height="200" src="./cs.png" width="300" />
-            <img alt="Certificate 4" class="rounded-lg shadow-lg" height="200" src="./python.png" width="300" />
-            <img alt="Certificate 5" class="rounded-lg shadow-lg" height="200" src="./node.jpg" width="300" />
-        </div>
 
-        <h6 class="font-semibold mt-6 mb-4 text-center transition-transform transform ">
-            I have genuinely enrolled in the course, but this certificate is a preview and not the original, as the original version is priced significantly higher in my country.
-        </h6>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+                <!-- Certificate 1 -->
+                <div class="group relative overflow-hidden rounded-lg border border-white/5 bg-neutral-900" data-cursor>
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="./c.jpg" alt="CS50 Certificate" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <h3 class="font-mono font-bold text-primary">CS50</h3>
+                            <p class="text-sm text-neutral-300">Harvard's Introduction to Computer Science - The foundation of how computers actually work.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 2 -->
+                <div class="group relative overflow-hidden rounded-lg border border-white/5 bg-neutral-900" data-cursor>
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="./linux.jpg" alt="Linux Certificate" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <h3 class="font-mono font-bold text-primary">Linux Administration</h3>
+                            <p class="text-sm text-neutral-300">Because GUI is a suggestion, not a requirement. System-level mastery.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 3 -->
+                <div class="group relative overflow-hidden rounded-lg border border-white/5 bg-neutral-900" data-cursor>
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="./python.png" alt="Python Certificate" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <h3 class="font-mono font-bold text-primary">Python</h3>
+                            <p class="text-sm text-neutral-300">From scripting to data structures. The swiss army knife of languages.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 4 -->
+                <div class="group relative overflow-hidden rounded-lg border border-white/5 bg-neutral-900" data-cursor>
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="./node.jpg" alt="Node.js Certificate" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <h3 class="font-mono font-bold text-primary">Node.js</h3>
+                            <p class="text-sm text-neutral-300">Asynchronous programming and event-driven architecture.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 5 -->
+                <div class="group relative overflow-hidden rounded-lg border border-white/5 bg-neutral-900" data-cursor>
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="./cs.png" alt="Computer Science Certificate" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <h3 class="font-mono font-bold text-primary">Computer Science</h3>
+                            <p class="text-sm text-neutral-300">Algorithms, data structures, and computational thinking.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 p-6 border border-white/5 rounded-lg bg-neutral-900/50 reveal">
+                <p class="font-mono text-sm text-neutral-400 flex items-start gap-3">
+                    <i data-lucide="info" class="w-4 h-4 text-primary mt-1 flex-shrink-0"></i>
+                    <span>
+                        <span class="text-neutral-300">Note:</span> These represent formal coursework completed, but my real education happens in the terminal at 2 AM, in obscure GitHub repositories, and through breaking things until I understand them. Currently pursuing deeper knowledge in systems programming and machine learning architectures.
+                    </span>
+                </p>
+            </div>
+        </div>
     </section>
-    <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="id-card">
-        <!-- New ID Card Section -->
-        <h2 class="text-3xl md :text-4xl font-bold mb-4">ID Card</h2>
-        <form id="id-card-form" class="flex flex-col space-y-4">
-            <input type="text" id="username" placeholder="Enter Password" class="p-2 rounded bg-gray-700 text-white"
-                required />
-            <button type="submit" class="bg-cyan-500 p-2 rounded hover:bg-cyan-400">Check</button>
-        </form>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-neutral-950 border-t border-white/5">
+        <div class="max-w-3xl mx-auto px-6 text-center reveal">
+            <h2 class="font-mono text-3xl md:text-4xl font-bold mb-4">
+                <span class="text-primary">/</span>ping
+            </h2>
+            <p class="text-neutral-400 mb-12">
+                Want to discuss kernel panics, neural network architectures, or why tabs are objectively superior to spaces? <br>
+                My inbox is open for any technical deep-dive.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <a href="mailto:weroperking@gmail.com" class="spotlight-card p-6 rounded-lg border border-white/5 hover:border-primary/50 transition-colors group" data-spotlight data-cursor>
+                    <div class="spotlight-content flex flex-col items-center">
+                        <i data-lucide="mail" class="w-6 h-6 text-primary mb-3 group-hover:scale-110 transition-transform"></i>
+                        <span class="font-mono text-sm">Gmail</span>
+                        <span class="text-xs text-neutral-600 mt-1">weroperking@gmail</span>
+                    </div>
+                </a>
+                
+                <a href="https://github.com/weroperking" target="_blank" class="spotlight-card p-6 rounded-lg border border-white/5 hover:border-primary/50 transition-colors group" data-spotlight data-cursor>
+                    <div class="spotlight-content flex flex-col items-center">
+                        <i data-lucide="github" class="w-6 h-6 text-primary mb-3 group-hover:scale-110 transition-transform"></i>
+                        <span class="font-mono text-sm">GitHub</span>
+                        <span class="text-xs text-neutral-600 mt-1">@weroperking</span>
+                    </div>
+                </a>
+
+                <div class="spotlight-card p-6 rounded-lg border border-white/5" data-spotlight>
+                    <div class="spotlight-content flex flex-col items-center">
+                        <i data-lucide="signal" class="w-6 h-6 text-primary mb-3"></i>
+                        <span class="font-mono text-sm">WhatsApp</span>
+                        <span class="text-xs text-neutral-600 mt-1">+20 127 770 7096</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-primary to-orange-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                <a href="./Roadmap.html" class="relative block w-full py-4 bg-neutral-900 border border-white/10 rounded-lg font-mono text-neutral-300 hover:text-primary transition-colors" data-cursor>
+                    View Technical Roadmap →
+                </a>
+            </div>
+        </div>
     </section>
-    <section class="container mx-auto p-6 md:p-12 bg-gray-800 rounded-lg shadow-lg mt-24 hidden" id="contact">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Contact Me</h2>
-        <p class="text-cyan-400 mb-6">
-            Gmail: <a href="mailto:weroperking@gmail.com">weroperking@gmail.com</a>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center border-t border-white/5">
+        <p class="font-mono text-sm text-neutral-600">
+            © 2024 Mohamed Khaled. Compiled with curiosity.
         </p>
-        <p class="text-cyan-400 mb-6">
-            Outlook: <a href="mailto:weroperking@outlook.com">weroperking@outlook.com</a>
+        <p class="font-mono text-xs text-neutral-700 mt-2">
+            while (alive) { learn(); build(); repeat(); }
         </p>
-        <p class="text-cyan-400 mb-6">
-            Phone, WhatsApp: 01277707096
-        </p>
-        <p class="text-cyan-400 mb-6">
-            If you're interested in my upcoming learning roadmap, <a href="./Roadmap.html"
-                class="underline decoration-pink-500 underline-offset-4">here it is</a>.
-        </p>
-    </section>
-    <footer class="container mx-auto p-6 bg-gray-800 rounded-lg shadow-lg mt-24">
-        <p class="text-center text-gray-400">© 2024 Mohamed khalid. All rights reserved.</p>
     </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var typed = new Typed('#typed', {
-                strings: ["Web Developer", "Tech Enthusiast", "Linux Logic", "Dynamic Logic", "Logic and Data Architect"],
-                typeSpeed: 50,
-                backSpeed: 50,
-                loop: true
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Custom Cursor Logic
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        const cursorTriggers = document.querySelectorAll('[data-cursor]');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        cursorTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => {
+                cursorOutline.classList.add('hover');
             });
-
-            const navLinks = document.querySelectorAll('nav a');
-            const sections = document.querySelectorAll('section');
-            const mainSection = document.querySelector('main');
-            const menuButton = document.getElementById('menu-button');
-            const mobileNavLinks = document.getElementById('mobile-nav-links');
-
-            menuButton.addEventListener('click', function () {
-                mobileNavLinks.classList.toggle('translate-x-full');
-                mobileNavLinks.classList.toggle('translate-x-0');
+            trigger.addEventListener('mouseleave', () => {
+                cursorOutline.classList.remove('hover');
             });
+        });
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    sections.forEach(section => {
-                        section.classList.toggle('hidden', section.id !== targetId);
-                    });
-                    mainSection.classList.toggle('hidden', targetId !== 'home');
-                    navLinks.forEach(navLink => {
-                        navLink.classList.toggle('text-white', navLink.getAttribute('href').substring(1) === targetId);
-                        navLink.classList.toggle('text-cyan-400', navLink.getAttribute('href').substring(1) !== targetId);
-                    });
-                });
+        // Spotlight Effect
+        const spotlightCards = document.querySelectorAll('[data-spotlight]');
+        spotlightCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
             });
+        });
 
-            const mobileNavLinksArray = document.querySelectorAll('#mobile-nav-links a');
-            mobileNavLinksArray.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    sections.forEach(section => {
-                        section.classList.toggle('hidden', section.id !== targetId);
-                    });
-                    mainSection.classList.toggle('hidden', targetId !== 'home');
-                    mobileNavLinksArray.forEach(navLink => {
-                        navLink.classList.toggle('text-white', navLink.getAttribute('href').substring(1) === targetId);
-                        navLink.classList.toggle('text-cyan-400', navLink.getAttribute('href').substring(1) !== targetId);
-                    });
-                    mobileNavLinks.classList.add('translate-x-full');
-                    mobileNavLinks.classList.remove('translate-x-0');
-                });
+        // Typed.js - Now broader tech focused
+        new Typed('#typed-text', {
+            strings: [
+                'Systems Programmer',
+                'Technology Generalist',
+                'Perpetual Student',
+                'Open Source Tinkerer',
+                'Future Rustacean',
+                'ML Curious',
+                'Low-Level Enthusiast'
+            ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 2000,
+            loop: true
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Reveal animations
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(element => {
+            gsap.fromTo(element, 
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+
+        // Three.js Hero Background
+        const canvas = document.getElementById('hero-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Create particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 100;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 10;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            color: 0xf59e0b,
+            transparent: true,
+            opacity: 0.6
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        // Add wireframe geometry - Icosahedron for that "tech" vibe
+        const geometry = new THREE.IcosahedronGeometry(1.5, 1);
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0xf59e0b, 
+            wireframe: true,
+            transparent: true,
+            opacity: 0.1
+        });
+        const sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
+
+        camera.position.z = 3;
+
+        // Mouse interaction for 3D
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX / window.innerWidth - 0.5;
+            mouseY = event.clientY / window.innerHeight - 0.5;
+        });
+
+        // Animation loop
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            sphere.rotation.y = elapsedTime * 0.2;
+            sphere.rotation.x = elapsedTime * 0.1;
+            
+            particlesMesh.rotation.y = -mouseX * 0.5;
+            particlesMesh.rotation.x = -mouseY * 0.5;
+
+            sphere.position.x = mouseX * 0.5;
+            sphere.position.y = -mouseY * 0.5;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+
+        mobileMenuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('-translate-y-full');
+                mobileMenu.classList.add('translate-y-0');
+            } else {
+                mobileMenu.classList.add('-translate-y-full');
+                mobileMenu.classList.remove('translate-y-0');
+            }
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.add('-translate-y-full');
+                mobileMenu.classList.remove('translate-y-0');
             });
+        });
 
-            // ID Card Form Submission
-            const idCardForm = document.getElementById('id-card-form');
-            idCardForm.addEventListener('submit', function (e) {
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg', 'shadow-black/20');
+            } else {
+                navbar.classList.remove('shadow-lg', 'shadow-black/20');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const username = document.getElementById('username').value;
-                if (username === 'weroperking') {
-                    window.location.href = 'https://weroperking.github.io/personal';
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Welcome!',
-                        text: 'You have successfully went to the ID Card page.',
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Invalid password! Please try again.',
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
         });
     </script>
 </body>
-
 </html>
